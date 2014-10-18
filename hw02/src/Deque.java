@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class for a generic data type for a deque.
@@ -119,7 +120,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 * Return an iterator over items in order from front to end.
 	 */
 	public Iterator<Item> iterator() {
-		return null;
+		return new Dequeiter();
 	}
 
 	/**
@@ -139,5 +140,22 @@ public class Deque<Item> implements Iterable<Item> {
 		Item item;
 		Node next;
 		Node prev;
+	}
+	private class Dequeiter implements Iterator<Item>{
+		private Node node;
+		public boolean hasNext(){
+			return node == null;
+		}
+		public void remove(){
+			throw new UnsupportedOperationException();
+		}
+		public Item next(){
+			if (!hasNext()){
+				throw new NoSuchElementException();
+			}
+			Item it = node.item;
+			node=node.next;
+			return it;
+		}
 	}
 }
