@@ -6,7 +6,8 @@ import java.util.Iterator;
  * @param <Item> the generic data type
  */
 public class Deque<Item> implements Iterable<Item> {
-
+	private Node first, last;
+	
 	/**
 	 * Constructor.
 	 * Constructs an empty deque.
@@ -20,7 +21,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @return true if the deque is empty, false otherwise
 	 */
 	public boolean isEmpty() {
-		return true;
+		return first == null;
 	}
 
 	/**
@@ -36,7 +37,10 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @param item	the item to insert
 	 */
 	public void addFirst(Item item) {
-		
+		Node oldfirst = first;
+		first = new Node();
+		first.item = item;
+		first.next = oldfirst;
 	}
 
 	/**
@@ -44,7 +48,10 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @param item	the item to insert
 	 */
 	public void addLast(Item item) {
-		
+		Node oldlast = last;
+		last = new Node();
+		last.item = item;
+		last.next = oldlast;
 	}
 
 	/**
@@ -83,5 +90,10 @@ public class Deque<Item> implements Iterable<Item> {
 	 */
 	public static void main(String[] args) {
 		// unit testing
+	}
+	
+	private class Node{
+		Item item;
+		Node next;
 	}
 }
