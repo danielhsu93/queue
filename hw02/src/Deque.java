@@ -6,14 +6,24 @@ import java.util.Iterator;
  * @param <Item> the generic data type
  */
 public class Deque<Item> implements Iterable<Item> {
+	
+	/**
+	 * Pointers to the first and last nodes in the deque.
+	 */
 	private Node first, last;
+	/**
+	 * The current size of the deque.
+	 */
+	private int size;
 	
 	/**
 	 * Constructor.
 	 * Constructs an empty deque.
 	 */
 	public Deque() {
-		
+		first = null;
+		last = null;
+		size = 0;
 	}
 
 	/**
@@ -21,7 +31,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @return true if the deque is empty, false otherwise
 	 */
 	public boolean isEmpty() {
-		return first == null;
+		return size == 0;
 	}
 
 	/**
@@ -29,7 +39,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @return the number of items on the deque
 	 */
 	public int size() {
-		return 0;
+		return size;
 	}
 
 	/**
@@ -41,6 +51,15 @@ public class Deque<Item> implements Iterable<Item> {
 		first = new Node();
 		first.item = item;
 		first.next = oldfirst;
+		
+		// special case for empty queue
+		if (isEmpty()) {
+			//last = first;		
+		} else {
+			
+		}
+		
+		size++;
 	}
 
 	/**
@@ -51,7 +70,17 @@ public class Deque<Item> implements Iterable<Item> {
 		Node oldlast = last;
 		last = new Node();
 		last.item = item;
-		last.next = oldlast;
+		last.next = null;
+		last.prev = oldlast;
+		
+		// special case for empty deque
+		if (isEmpty()) {
+			first = last;
+		} else {
+			oldlast.next = last;
+		}
+		
+		size++;
 	}
 
 	/**
@@ -59,7 +88,11 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @return the item that was removed
 	 */
 	public Item removeFirst() {
-		return null;
+		Node oldfirst = first;
+		first = oldfirst.next;
+		first.prev = null;
+		size--;
+		return oldfirst.item;
 	}
 
 	/**
@@ -67,7 +100,11 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @return	the item deleted
 	 */
 	public Item removeLast() {
-		return null;
+		Node oldlast = last;
+		last = oldlast.prev;
+		last.next = null;
+		size--;
+		return oldlast.item;
 	}
 
 	/**
@@ -92,8 +129,14 @@ public class Deque<Item> implements Iterable<Item> {
 		// unit testing
 	}
 	
+	/**
+	 * The linked list will be made up of nodes.
+	 * Each node contains an item of generic type Item
+	 * and a reference to the next Node.
+	 */
 	private class Node{
 		Item item;
 		Node next;
+		Node prev;
 	}
 }
