@@ -180,7 +180,7 @@ public class Deque<Item> implements Iterable<Item> {
 		 * @return true if there is a next node, false otherwise
 		 */
 		public boolean hasNext() {
-			return head == null;
+			return head != null;
 		}
 		
 		/**
