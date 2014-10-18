@@ -49,7 +49,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 */
 	public void addFirst(Item item) {
 		Node oldfirst = first;
-		Node first = new Node();
+		first = new Node();
 		first.item = item;
 		first.next = oldfirst;
 		first.prev = null;
@@ -120,7 +120,7 @@ public class Deque<Item> implements Iterable<Item> {
 	 * Return an iterator over items in order from front to end.
 	 */
 	public Iterator<Item> iterator() {
-		return new Dequeiter();
+		return new Dequeiter(first);
 	}
 
 	/**
@@ -136,25 +136,64 @@ public class Deque<Item> implements Iterable<Item> {
 	 * Each node contains an item of generic type Item
 	 * and a reference to the next Node.
 	 */
-	private class Node{
+	private class Node {
+		/**
+		 * the item
+		 */
 		Item item;
+		/**
+		 * the next node
+		 */
 		Node next;
+		/**
+		 * the previous node
+		 */
 		Node prev;
 	}
-	private class Dequeiter implements Iterator<Item>{
-		private Node node;
-		public boolean hasNext(){
-			return node == null;
+	
+	/**
+	 * Class for an iterator over a deque from front to end.
+	 */
+	private class Dequeiter implements Iterator<Item> {
+		/**
+		 * A reference to the front of the deque
+		 */
+		private Node head;
+		
+		/**
+		 * Constructor.
+		 * @param nodeIn	the head
+		 */
+		public Dequeiter(Node nodeIn) {
+			this.head = nodeIn;
 		}
-		public void remove(){
+		
+		/**
+		 * Returns true if there is a next node, false otherwise.
+		 * @return true if there is a next node, false otherwise
+		 */
+		public boolean hasNext() {
+			return head == null;
+		}
+		
+		/**
+		 * Not supported.
+		 */
+		public void remove() {
 			throw new UnsupportedOperationException();
 		}
-		public Item next(){
-			if (!hasNext()){
+		
+		/**
+		 * Returns the item in the next node.
+		 * @return the item in the next node
+		 */
+		public Item next() {
+			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			Item it = node.item;
-			node=node.next;
+			
+			Item it = head.item;
+			head = head.next;
 			return it;
 		}
 	}
