@@ -1,9 +1,9 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * Class for a randomized queue in which the item that is removed is chosen
@@ -59,7 +59,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			throw new NullPointerException();
 		}
 		if (queue.length==size){
-			resize(size*2);
+			resize(size+1);
 		}
 		queue[size] = item;
 		size++;
@@ -77,9 +77,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (size == 0) {
 			throw new NoSuchElementException();
 		}
-		if (queue.length<size/4){
-			resize(size/2);
-		}
 		int index = rand.nextInt(size);
 		Item randitem = queue[index];
 		if (index == size-1){
@@ -89,17 +86,21 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			queue[index] = queue[size-1];
 			queue[size-1] = null;
 		}
-		
+		if (queue.length>size){
+			resize(size-1);
+		}
 		size--;
+
 		return randitem;
 	}
-	public Item[] resize(int size){
+
+	public void resize(int size){
 		@SuppressWarnings("unchecked")
-		Item[] newarray = (Item[])new Object[size*2];
+		Item[] newarray = (Item[])new Object[size];
 		for (int i=0; i< queue.length; i++){
 			newarray[i] = queue[i];
 		}
-		return newarray;
+		queue = newarray;
 	}
 	/**
 	 * Function number 6.
@@ -113,7 +114,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			throw new NoSuchElementException();
 		}
 		
-		return null;
+		return queue[rand.nextInt(size)];
 	}
 
 	/**
@@ -121,7 +122,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * Print all the Item objects in the queue using the iterator.
 	 */
 	public void printAll() {
-		
+		Iterator<Item> iter = this.iterator();
+		while (iter.hasNext()) {
+			Item it = iter.next();
+			System.out.print(it + " ");
+		}
 	}
 
 	/**
@@ -133,7 +138,56 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 
 	public static void main(String[] args) {
-		// unit testing
+		// create scanner
+		Scanner myScanner = new Scanner(System.in);  
+		
+		// the first line is always 1, so create a deque
+		RandomizedQueue<String> d = new RandomizedQueue<String>();
+		
+		while (true) {
+			String a = myScanner.nextLine();
+			String[] splited = a.split(" ");
+			int fxn = Integer.parseInt(splited[0]);
+			String input = "";
+			
+			// only functions 4 and 5 take inputs
+			if (fxn == 4) {
+				input = splited[1];
+			}
+			
+			// break if function 8 is called
+			if (fxn == 7) {
+				break;
+			}
+			
+			// else another function was called
+			else {
+				// check if the deque is empty
+				if (fxn == 2) {
+					d.isEmpty();
+				}
+				// check the size of the deque
+				else if (fxn == 3) {
+					d.size();
+				}
+				// insert item
+				else if (fxn == 4) {
+					d.enqueue(input);
+				}
+				// pop item
+				else if (fxn == 5) {
+					d.dequeue();
+				}
+				// delete and return item at the front
+				else if (fxn == 6) {
+					d.sample();
+				}
+			}
+		}
+		
+		d.printAll();
+		
+		myScanner.close();
 	}
 	
 	
