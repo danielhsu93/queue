@@ -47,18 +47,21 @@ public class Deque<Item> implements Iterable<Item> {
 	 * @param item	the item to insert
 	 */
 	public void addFirst(Item item) {
-		Node oldfirst = first;
-		first = new Node();
-		first.item = item;
-		first.next = oldfirst;
-		
-		// special case for empty queue
-		if (isEmpty()) {
-			//last = first;		
-		} else {
-			
+		Node newfirst = new Node();
+		if (isEmpty()){
+			newfirst.next = null; 
+			newfirst.prev=null;
 		}
-		
+		else{
+			newfirst.next = first;
+			newfirst.prev=null;
+			first.prev = newfirst;
+		}
+		first = newfirst;
+		first.item = item;
+		if (last == null){
+			last = first;
+		}
 		size++;
 	}
 
