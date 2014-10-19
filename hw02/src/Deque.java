@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * Class for a generic data type for a deque.
@@ -155,7 +156,7 @@ public class Deque<Item> implements Iterable<Item> {
 		Iterator<Item> iter = this.iterator();
 		while (iter.hasNext()) {
 			Item it = iter.next();
-			System.out.println(it);
+			System.out.print(it + " ");
 		}
 	}
 
@@ -173,11 +174,60 @@ public class Deque<Item> implements Iterable<Item> {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		Deque<String> deque = new Deque<String>();
-		deque.addFirst("1");
-		deque.addFirst("2");
-		deque.addLast("3");
-		deque.printAll();
+		// create scanner
+		Scanner myScanner = new Scanner(System.in);  
+		
+		// the first line is always 1, so create a deque
+		Deque<String> d = new Deque<String>();
+		
+		while (true) {
+			String a = myScanner.nextLine();
+			String[] splited = a.split(" ");
+			int fxn = Integer.parseInt(splited[0]);
+			String input = "";
+			
+			// only functions 4 and 5 take inputs
+			if (fxn == 4 || fxn == 5) {
+				input = splited[1];
+			}
+			
+			// break if function 8 is called
+			if (fxn == 8) {
+				break;
+			}
+			
+			// else another function was called
+			else {
+				// check if the deque is empty
+				if (fxn == 2) {
+					d.isEmpty();
+				}
+				// check the size of the deque
+				else if (fxn == 3) {
+					d.size();
+				}
+				// insert item at the front
+				else if (fxn == 4) {
+					d.addFirst(input);
+				}
+				// insert item at the end
+				else if (fxn == 5) {
+					d.addLast(input);
+				}
+				// delete and return item at the front
+				else if (fxn == 6) {
+					d.removeFirst();
+				}
+				// delete and return item at the end
+				else if (fxn == 7) {
+					d.removeLast();
+				}
+			}
+		}
+		
+		d.printAll();
+		
+		myScanner.close();
 	}
 
 	/**
