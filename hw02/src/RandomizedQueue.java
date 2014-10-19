@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class for a randomized queue in which the item that is removed is chosen
@@ -46,7 +47,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * Add the item.
 	 * @param item	the item to add
 	 */
-	public void enqueue(Item item) {
+	public void enqueue(Item item) throws NullPointerException {
+		// throw a NullPointerException if the client attempts to add a null item
+		if (item == null) {
+			throw new NullPointerException();
+		}
 		
 	}
 
@@ -55,7 +60,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * Delete and return a random item.
 	 * @return
 	 */
-	public Item dequeue() {
+	public Item dequeue() throws NoSuchElementException {
+		// throw a java.util.NoSuchElementException if the client attemps to dequeue an item
+		// from an empty randomized queue
+		if (size == 0) {
+			throw new NoSuchElementException();
+		}
+		
 		return null;
 	}
 
@@ -64,7 +75,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * Return (but do not delete) a random item.
 	 * @return a random item
 	 */
-	public Item sample() {
+	public Item sample() throws NoSuchElementException {
+		// throw a java.util.NoSuchElementException if the client attemps to dequeue an item
+		// from an empty randomized queue
+		if (size == 0) {
+			throw new NoSuchElementException();
+		}
+		
 		return null;
 	}
 
