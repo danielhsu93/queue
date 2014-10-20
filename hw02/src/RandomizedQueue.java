@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import Deque.Node;
+
 /**
  * Class for a randomized queue in which the item that is removed is chosen
  * uniformly at random from items in the data structure.
@@ -103,5 +105,62 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 	public static void main(String[] args) {
 		// unit testing
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Class for an iterator over a randomized queue in random order.
+	 */
+	private class RQIter implements Iterator<Item> {
+		/**
+		 * The randomized queue
+		 */
+		private Item[] q;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param qIn
+		 *            the randomized queue
+		 */
+		public RQIter(Item[] qIn) {
+			this.q = qIn;
+		}
+
+		/**
+		 * Returns true if there is a next item, false otherwise.
+		 * 
+		 * @return true if there is a next item, false otherwise
+		 */
+		public boolean hasNext() {
+			
+		}
+
+		/**
+		 * Not supported.
+		 */
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+
+		/**
+		 * Returns a random item that has not yet been chosen.
+		 * 
+		 * @return a random item that has not yet been chosen
+		 */
+		public Item next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+
+
+		}
+
 	}
 }
