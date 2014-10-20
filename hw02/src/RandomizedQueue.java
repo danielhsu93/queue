@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.NoSuchElementException;
-
-import Deque.Node;
 
 /**
  * Class for a randomized queue in which the item that is removed is chosen
@@ -128,7 +129,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * @return an independent iterator over items in random order
 	 */
 	public Iterator<Item> iterator() {
-		return null;
+		return new RQIter(queue);
 	}
 
 	public static void main(String[] args) {
@@ -150,6 +151,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		 * The randomized queue
 		 */
 		private Item[] q;
+		/**
+		 * The current size of the randomized queue
+		 */
+		private int size;
+		/**
+		 * The array of indices
+		 */
+		private Integer[] index;
 
 		/**
 		 * Constructor.
@@ -159,6 +168,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		 */
 		public RQIter(Item[] qIn) {
 			this.q = qIn;
+			this.size = qIn.length;
+			
+			index = new Integer[size];
+			for (int i = 0; i < size; i++) {
+				index[i] = i;
+			}
+			
+			Collections.shuffle(Arrays.asList(index));
 		}
 
 		/**
@@ -167,7 +184,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		 * @return true if there is a next item, false otherwise
 		 */
 		public boolean hasNext() {
-			
+			return size > 0;
 		}
 
 		/**
@@ -186,6 +203,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
+			
+			int i = index[size - 1];
+			size--;
+			return q[i];
 
 
 		}
