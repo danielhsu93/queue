@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.Random;
 import java.util.NoSuchElementException;
 
 /**
@@ -9,7 +10,8 @@ import java.util.NoSuchElementException;
  *            
  */
 public class RandomizedQueue<Item> implements Iterable<Item> {
-	
+	private Item[] queue;
+	private Random rand = new Random();
 	/**
 	 * the number of items currently in the queue
 	 */
@@ -21,6 +23,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * 
 	 */
 	public RandomizedQueue() {
+		queue = (Item[]) new Object[1];
 		size = 0;
 	}
 
@@ -52,6 +55,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (item == null) {
 			throw new NullPointerException();
 		}
+		if (queue.length==size){
+			resize(size*2);
+		}
+		queue[size] = item;
+		size++;
 		
 	}
 
@@ -66,10 +74,30 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (size == 0) {
 			throw new NoSuchElementException();
 		}
+		if (queue.length<size/4){
+			resize(size/2);
+		}
+		int index = rand.nextInt(size);
+		Item randitem = queue[index];
+		if (index == size-1){
+			queue[index] = null;
+		}
+		else{
+			queue[index] = queue[size-1];
+			queue[size-1] = null;
+		}
 		
-		return null;
+		size--;
+		return randitem;
 	}
-
+	public Item[] resize(int size){
+		@SuppressWarnings("unchecked")
+		Item[] newarray = (Item[])new Object[size*2];
+		for (int i=0; i< queue.length; i++){
+			newarray[i] = queue[i];
+		}
+		return newarray;
+	}
 	/**
 	 * Function number 6.
 	 * Return (but do not delete) a random item.
