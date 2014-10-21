@@ -103,8 +103,8 @@ public class Deque<Item> implements Iterable<Item> {
 			first = last;
 		} else {
 			oldLast.next = last;
-		}
-
+		}	
+		
 		size++;
 	}
 
@@ -122,8 +122,16 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 		
 		Node oldFirst = first;
-		first = oldFirst.next;
-		first.prev = null;
+		
+		// special case if this is the last item in the deque
+		if (size == 1) {
+			first = null;
+			last = null;
+		} else {
+			first = oldFirst.next;
+			first.prev = null;
+		}
+		
 		size--;
 		return oldFirst.item;
 	}
@@ -142,8 +150,16 @@ public class Deque<Item> implements Iterable<Item> {
 			}
 		
 		Node oldLast = last;
-		last = oldLast.prev;
-		last.next = null;
+		
+		// special case if this is the last item in the deque
+		if (size == 1) {
+			first = null;
+			last = null;
+		} else {
+			last = oldLast.prev;
+			last.next = null;
+		}
+		
 		size--;
 		return oldLast.item;
 	}
