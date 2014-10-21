@@ -30,7 +30,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * 
 	 */
 	public RandomizedQueue() {
-		queue = (Item[]) new Object[1];
+		@SuppressWarnings("unchecked")
+		Item[] tempqueue = (Item[]) new Object[1];
+		this.queue = tempqueue;
 		rand = new Random();
 		size = 0;
 	}
