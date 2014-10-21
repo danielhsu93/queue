@@ -65,10 +65,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (item == null) {
 			throw new NullPointerException();
 		}
-		
+
 		// resize the randomized queue if it is full
 		if (queue.length == size){
-			resize(size + 1);
+			resize(size * 2);
 		}
 		
 		queue[size] = item;
@@ -79,7 +79,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	/**
 	 * Function number 5.
 	 * Delete and return a random item.
-	 * @return
+	 * @return the random item that was deleted
 	 */
 	public Item dequeue() throws NoSuchElementException {
 		// throw a java.util.NoSuchElementException if the client attemps to dequeue an item
@@ -97,9 +97,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			queue[index] = queue[size - 1];
 			queue[size - 1] = null;
 		}
-		
-		if (queue.length>size){
-			resize(size - 1);
+
+		if (queue.length / 4 > size){
+			resize(size / 2);
 		}
 		size--;
 
