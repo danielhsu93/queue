@@ -13,8 +13,14 @@ import java.util.Scanner;
  *            
  */
 public class RandomizedQueue<Item> implements Iterable<Item> {
+	/**
+	 * an array representation of the randomized queue
+	 */
 	private Item[] queue;
-	private Random rand = new Random();
+	/**
+	 * the Random object
+	 */
+	private Random rand;
 	/**
 	 * the number of items currently in the queue
 	 */
@@ -27,6 +33,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 */
 	public RandomizedQueue() {
 		queue = (Item[]) new Object[1];
+		rand = new Random();
 		size = 0;
 	}
 
@@ -58,9 +65,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (item == null) {
 			throw new NullPointerException();
 		}
-		if (queue.length==size){
-			resize(size*2);
+
+		// resize the randomized queue if it is full
+		if (queue.length == size){
+			resize(size * 2);
 		}
+		
 		queue[size] = item;
 		size++;
 		
@@ -69,7 +79,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	/**
 	 * Function number 5.
 	 * Delete and return a random item.
-	 * @return
+	 * @return the random item that was deleted
 	 */
 	public Item dequeue() throws NoSuchElementException {
 		// throw a java.util.NoSuchElementException if the client attemps to dequeue an item
@@ -77,27 +87,33 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (size == 0) {
 			throw new NoSuchElementException();
 		}
+		
 		int index = rand.nextInt(size);
 		Item randitem = queue[index];
-		if (index == size-1){
+		if (index == size - 1){
 			queue[index] = null;
 		}
 		else{
-			queue[index] = queue[size-1];
-			queue[size-1] = null;
+			queue[index] = queue[size - 1];
+			queue[size - 1] = null;
 		}
-		if (queue.length/4>size){
-			resize(size/2);
+
+		if (queue.length / 4 > size){
+			resize(size / 2);
 		}
 		size--;
 
 		return randitem;
 	}
 
+	/**
+	 * 
+	 * @param size
+	 */
 	public void resize(int size){
 		@SuppressWarnings("unchecked")
 		Item[] newarray = (Item[])new Object[size];
-		for (int i=0; i< queue.length; i++){
+		for (int i = 0; i < queue.length; i++){
 			newarray[i] = queue[i];
 		}
 		queue = newarray;
