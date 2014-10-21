@@ -59,7 +59,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			throw new NullPointerException();
 		}
 		if (queue.length==size){
-			resize(size+1);
+			resize(size*2);
 		}
 		queue[size] = item;
 		size++;
@@ -86,8 +86,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			queue[index] = queue[size-1];
 			queue[size-1] = null;
 		}
-		if (queue.length>size){
-			resize(size-1);
+		if (queue.length/4>size){
+			resize(size/2);
 		}
 		size--;
 
