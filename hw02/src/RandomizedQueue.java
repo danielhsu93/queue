@@ -134,15 +134,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 * @return an independent iterator over items in random order
 	 */
 	public Iterator<Item> iterator() {
-		return new RQIter(queue);
+		return new RQIter(queue, size);
 	}
 
 	public static void main(String[] args) {
 		// create scanner
 		Scanner myScanner = new Scanner(System.in);  
 		
-		// the first line is always 1, so create a deque
-		RandomizedQueue<String> d = new RandomizedQueue<String>();
+		// the first line is always 1, so create a randomized queue
+		RandomizedQueue<String> rq = new RandomizedQueue<String>();
 		
 		while (true) {
 			String a = myScanner.nextLine();
@@ -150,42 +150,43 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			int fxn = Integer.parseInt(splited[0]);
 			String input = "";
 			
-			// only functions 4 and 5 take inputs
+			// only function 4 takes an input
 			if (fxn == 4) {
 				input = splited[1];
 			}
 			
-			// break if function 8 is called
+			// break if function 7 is called
 			if (fxn == 7) {
 				break;
 			}
 			
 			// else another function was called
 			else {
-				// check if the deque is empty
+				// check if the randomized queue is empty
 				if (fxn == 2) {
-					d.isEmpty();
+					rq.isEmpty();
 				}
-				// check the size of the deque
+				// check the size of the randomized queue
 				else if (fxn == 3) {
-					d.size();
+					rq.size();
 				}
-				// insert item
+				// add an item
 				else if (fxn == 4) {
-					d.enqueue(input);
+					rq.enqueue(input);
 				}
-				// pop item
+				// delete an item
 				else if (fxn == 5) {
-					d.dequeue();
+					rq.dequeue();
 				}
-				// delete and return item at the front
+				
+				// return (but do not delete) a random item
 				else if (fxn == 6) {
-					d.sample();
+					rq.sample();
 				}
 			}
 		}
 		
-		d.printAll();
+		rq.printAll();
 		
 		myScanner.close();
 	}
@@ -220,9 +221,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		 * @param qIn
 		 *            the randomized queue
 		 */
-		public RQIter(Item[] qIn) {
+		public RQIter(Item[] qIn, int size) {
 			this.q = qIn;
-			this.size = qIn.length;
+			this.size = size;
 			
 			index = new Integer[size];
 			for (int i = 0; i < size; i++) {
