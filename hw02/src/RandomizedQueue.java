@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.NoSuchElementException;
@@ -88,16 +86,21 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			throw new NoSuchElementException();
 		}
 		
+		// get a random item in the randomized queue
 		int index = rand.nextInt(size);
 		Item randitem = queue[index];
-		if (index == size - 1){
+		
+		// make sure there is no null element in the middle of the queue
+		if (index == size - 1) {
 			queue[index] = null;
-		}
-		else{
+		} else {
+			// if element to remove is in middle of queue, replace its spot
+			// with the last item in the queue
 			queue[index] = queue[size - 1];
 			queue[size - 1] = null;
 		}
 
+		// resize if queue is less than 1/4 full
 		if (queue.length / 4 > size){
 			resize(size / 2);
 		}
@@ -107,7 +110,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * 
+	 * Resize the randomized queue.
 	 * @param size
 	 */
 	public void resize(int size){
@@ -118,6 +121,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		}
 		queue = newarray;
 	}
+	
 	/**
 	 * Function number 6.
 	 * Return (but do not delete) a random item.
@@ -153,6 +157,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		return new RQIter(queue, size);
 	}
 
+	/**
+	 * Start accepting input.
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		// create scanner
 		Scanner myScanner = new Scanner(System.in);  
@@ -229,7 +237,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		/**
 		 * The array of indices
 		 */
-		private Integer[] index;
+		private int[] index;
 
 		/**
 		 * Constructor.
@@ -241,12 +249,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			this.q = qIn;
 			this.size = size;
 			
-			index = new Integer[size];
+			index = new int[size];
 			for (int i = 0; i < size; i++) {
 				index[i] = i;
 			}
 			
-			Collections.shuffle(Arrays.asList(index));
+			// randomly shuffle the indices so the items
+			// come out in random order
+			StdRandom.shuffle(index);
 		}
 
 		/**

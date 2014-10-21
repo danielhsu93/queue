@@ -168,7 +168,7 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Start the unit tests.
+	 * Start accepting inputs.
 	 * 
 	 * @param args
 	 *            the arguments
