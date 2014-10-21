@@ -8,7 +8,7 @@ NetID: dh15
 Partner name: Connie Feng
 Partner NetID: clf6
 
-Hours to complete assignment (optional):10
+Hours to complete assignment (optional): 10 hours
 
 
 /**********************************************************************
@@ -27,8 +27,9 @@ which linear time.
 
 The Deque was implemented with a doubly linked list, and we maintained 
 references to both the head and tail. We chose to use a doubly linked list
-because we wanted to pop off the front or last in constant time. We also 
-didn’t need to know how long the list was going to be beforehand. 
+because we wanted to remove the first or last in constant time. Linked lists
+are also good to use when you don't know how long the list is going to be
+beforehand.
 
 
 /**********************************************************************
@@ -37,8 +38,8 @@ didn’t need to know how long the list was going to be beforehand.
  *  include any help from people (including course staff, lab TAs,
  *  classmates, and friends) and attribute them by name.
  **********************************************************************/
-We received help from Omid and Dr.Fagan.
- 
+We received help from Omid and Dr.Fagan. They helped us with our problems
+with StdIn. 
  
 /**********************************************************************
  *  If you did NOT work with a partner, please state below
