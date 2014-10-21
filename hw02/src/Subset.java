@@ -2,13 +2,12 @@
 public class Subset {
 	   public static void main(String[] args){
 		   int in = Integer.parseInt(args[0]);
-		   String[] output = new String[in];
-		   for (int i=0; i< in; i++){
-			   output[i] = StdIn.readString();
+		   RandomizedQueue<String> rq = new RandomizedQueue<String>();
+		   while (!StdIn.isEmpty()){
+			   rq.enqueue(StdIn.readString());
 		   }
-		   StdRandom.shuffle(output);
-		   for (String st : output){
-			   StdOut.println(st);
+		   for (int i =0; i< in; i++){
+			   StdOut.println(rq.dequeue());
 		   }
 		   
 	   }
