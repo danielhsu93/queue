@@ -14,14 +14,8 @@ public class Palindrome {
 	   boolean status = true;
 	   
 	   // fill the deque with the chars
-	   while(true) {
-		   char temp = StdIn.readChar();
-		   
-		   if (temp != '\n') {
-			   d.addLast(temp);
-		   } else {
-			   break;
-		   }	   
+	   while(!StdIn.isEmpty()) {
+		   d.addLast(StdIn.readChar());   
 	   }
 	   
 	   // if there is an odd number of characters, it is not a 
